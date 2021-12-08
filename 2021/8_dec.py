@@ -1,10 +1,4 @@
-f = open('8_dec.txt', 'r')
-
-from collections import defaultdict
 from collections import deque
-
-d = {2:1, 4:4, 3:7, 7:8}
-ans = ans2 = 0
 
 def overlap(s1, s2):
     ans = 0
@@ -13,32 +7,21 @@ def overlap(s1, s2):
             ans += 1
     return ans 
 
-mat = [[0]*10 for _ in range(10)]
-mat[1][3] = 2
-mat[3][1] = 2
-mat[2][5] = 3
-mat[5][2] = 3
-mat[6][7] = 2
-mat[7][6] = 2
-mat[6][4] = 3
-mat[4][6] = 3
-mat[6][1] = 1
-mat[1][6] = 1
-mat[5][0] = 4
-mat[0][5] = 4
-
 def sort_s(s):
     return "".join(sorted(list(s)))
 
+d = {2:1, 4:4, 3:7, 7:8}
+ans = 0
+
+f = open('8_dec.txt', 'r')
 for line in f:
     mapping = {}
     parts = line.strip().split('|')
     inp, out = parts
     out = out.strip().split()
     inp = inp.strip().split()
-    print(out)
     out = [sort_s(item) for item in out]
-    inp = map(sort_s, inp)
+    inp = [sort_s(item) for item in inp]
     
     q = deque()
     q.extend(inp)
@@ -69,7 +52,6 @@ for line in f:
         if code not in mapping:
             q.append(code)
     
-    print(mapping)
     cur = 0
     for num in out:
         if num in mapping:
@@ -78,8 +60,6 @@ for line in f:
             print("failed")
             break
 
-    print(list(out))
-    print(cur)
-    ans2 += cur
+    ans += cur
 
-print(ans2)
+print(ans)
